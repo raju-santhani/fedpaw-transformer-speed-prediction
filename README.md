@@ -1,6 +1,6 @@
 # FedPAW with Informer for Vehicle Speed Prediction
 
-An academic project exploring the computation–accuracy tradeoff in personalized vehicle speed prediction. This work extends the existing FedPAW framework with a custom Transformer predictor named `Informer` in the archived code. It uses standard multi-head attention, not the full Informer architecture or ProbSparse attention described in the report.
+An academic project exploring the computation–accuracy tradeoff in personalized vehicle speed prediction. This work extends the existing FedPAW framework with a custom Transformer predictor named `Informer` in the archived code. 
 
 ## Problem
 
