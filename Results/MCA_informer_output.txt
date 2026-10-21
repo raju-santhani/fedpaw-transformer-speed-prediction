@@ -1,0 +1,3305 @@
+==================================================
+Algorithm: FedAWA
+Local batch size: 64
+Local epochs: 1
+Local learing rate: 0.005
+Local learing rate decay: False
+Total number of clients: 10
+Clients join in each round: 1.0
+Clients randomly join: False
+Client drop rate: 0.0
+Client select regarding time: False
+Running times: 1
+Dataset: driving10_fg34
+Number of classes: 10
+Backbone: informer
+Using device: cuda
+Using DP: False
+Auto break: False
+Global rounds: 300
+Cuda device id: 0
+DLG attack: False
+Total number of new clients: 0
+Fine tuning epoches on new clients: 0
+==================================================
+
+============= Running time: 0th =============
+Creating server and clients ...
+Informer(
+  (enc_embedding): DataEmbedding(
+    (value_embedding): Linear(in_features=23, out_features=128, bias=True)
+    (position_embedding): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (encoder): Sequential(
+    (0): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (1): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (projection): Linear(in_features=128, out_features=1, bias=True)
+)
+
+Join ratio / total clients: 1.0 / 10
+Finished creating server and clients.
+
+=== Memory usage BEFORE training ===
+CPU RAM: 929.85 MB
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      |  65444 KiB | 128571 KiB |  78803 MiB |  78739 MiB |
+|       from large pool |  46700 KiB |  54400 KiB |  19796 MiB |  19751 MiB |
+|       from small pool |  18744 KiB |  75515 KiB |  59006 MiB |  58988 MiB |
+|---------------------------------------------------------------------------|
+| Active memory         |  65444 KiB | 128571 KiB |  78803 MiB |  78739 MiB |
+|       from large pool |  46700 KiB |  54400 KiB |  19796 MiB |  19751 MiB |
+|       from small pool |  18744 KiB |  75515 KiB |  59006 MiB |  58988 MiB |
+|---------------------------------------------------------------------------|
+| Requested memory      |  65378 KiB | 127193 KiB |  74051 MiB |  73987 MiB |
+|       from large pool |  46640 KiB |  52980 KiB |  15047 MiB |  15001 MiB |
+|       from small pool |  18738 KiB |  75493 KiB |  59004 MiB |  58986 MiB |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   | 139264 KiB | 139264 KiB | 139264 KiB |      0 B   |
+|       from large pool |  61440 KiB |  61440 KiB |  61440 KiB |      0 B   |
+|       from small pool |  77824 KiB |  77824 KiB |  77824 KiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |  16476 KiB |  80612 KiB | 102009 MiB | 101993 MiB |
+|       from large pool |  14740 KiB |  42300 KiB |  39910 MiB |  39895 MiB |
+|       from small pool |   1736 KiB |  48293 KiB |  62099 MiB |  62098 MiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     350    |    1261    |  251387    |  251037    |
+|       from large pool |      14    |      18    |   12001    |   11987    |
+|       from small pool |     336    |    1244    |  239386    |  239050    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     350    |    1261    |  251387    |  251037    |
+|       from large pool |      14    |      18    |   12001    |   11987    |
+|       from small pool |     336    |    1244    |  239386    |  239050    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |      41    |      41    |      41    |       0    |
+|       from large pool |       3    |       3    |       3    |       0    |
+|       from small pool |      38    |      38    |      38    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       6    |     127    |  107149    |  107143    |
+|       from large pool |       3    |       7    |    8528    |    8525    |
+|       from small pool |       3    |     121    |   98621    |   98618    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+-------------Round number: 0-------------
+
+Evaluate global model
+Averaged Train Loss: 0.3964
+Averaged Test MAE: 18.7985
+Averaged Test RMSE: 20.3397
+Std Test MAE: 1.4057
+Std Test RMSE: 1.3699
+------------------------- time cost ------------------------- 4.563444375991821
+
+-------------Round number: 1-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0218
+Averaged Test MAE: 4.1814
+Averaged Test RMSE: 4.5344
+Std Test MAE: 1.0879
+Std Test RMSE: 1.2776
+------------------------- time cost ------------------------- 4.569744825363159
+
+-------------Round number: 2-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0184
+Averaged Test MAE: 3.8864
+Averaged Test RMSE: 4.2158
+Std Test MAE: 0.9771
+Std Test RMSE: 1.1225
+------------------------- time cost ------------------------- 5.145612716674805
+
+-------------Round number: 3-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0185
+Averaged Test MAE: 3.8891
+Averaged Test RMSE: 4.2187
+Std Test MAE: 0.9664
+Std Test RMSE: 1.1094
+------------------------- time cost ------------------------- 4.489439010620117
+
+-------------Round number: 4-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0187
+Averaged Test MAE: 3.9125
+Averaged Test RMSE: 4.2366
+Std Test MAE: 0.9372
+Std Test RMSE: 1.0763
+------------------------- time cost ------------------------- 5.0976502895355225
+
+-------------Round number: 5-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0187
+Averaged Test MAE: 3.9094
+Averaged Test RMSE: 4.2342
+Std Test MAE: 0.9401
+Std Test RMSE: 1.0796
+------------------------- time cost ------------------------- 4.333760499954224
+
+-------------Round number: 6-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0187
+Averaged Test MAE: 3.9117
+Averaged Test RMSE: 4.2359
+Std Test MAE: 0.9378
+Std Test RMSE: 1.0769
+------------------------- time cost ------------------------- 4.4174723625183105
+
+-------------Round number: 7-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8905
+Averaged Test RMSE: 4.2184
+Std Test MAE: 0.9977
+Std Test RMSE: 1.1491
+------------------------- time cost ------------------------- 5.124055862426758
+
+-------------Round number: 8-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0184
+Averaged Test MAE: 3.8867
+Averaged Test RMSE: 4.2165
+Std Test MAE: 0.9707
+Std Test RMSE: 1.1144
+------------------------- time cost ------------------------- 4.392022371292114
+
+-------------Round number: 9-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0185
+Averaged Test MAE: 3.8941
+Averaged Test RMSE: 4.2224
+Std Test MAE: 0.9574
+Std Test RMSE: 1.0990
+------------------------- time cost ------------------------- 4.7299182415008545
+
+-------------Round number: 10-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8870
+Averaged Test RMSE: 4.2152
+Std Test MAE: 0.9911
+Std Test RMSE: 1.1404
+------------------------- time cost ------------------------- 5.02560019493103
+
+-------------Round number: 11-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8864
+Averaged Test RMSE: 4.2147
+Std Test MAE: 0.9897
+Std Test RMSE: 1.1384
+------------------------- time cost ------------------------- 4.360140323638916
+
+-------------Round number: 12-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0186
+Averaged Test MAE: 3.9053
+Averaged Test RMSE: 4.2309
+Std Test MAE: 0.9436
+Std Test RMSE: 1.0834
+------------------------- time cost ------------------------- 5.09915566444397
+
+-------------Round number: 13-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0185
+Averaged Test MAE: 3.8886
+Averaged Test RMSE: 4.2179
+Std Test MAE: 0.9649
+Std Test RMSE: 1.1076
+------------------------- time cost ------------------------- 4.519186019897461
+
+-------------Round number: 14-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0184
+Averaged Test MAE: 3.8896
+Averaged Test RMSE: 4.2186
+Std Test MAE: 0.9628
+Std Test RMSE: 1.1051
+------------------------- time cost ------------------------- 4.328031539916992
+
+-------------Round number: 15-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8856
+Averaged Test RMSE: 4.2138
+Std Test MAE: 0.9912
+Std Test RMSE: 1.1404
+------------------------- time cost ------------------------- 5.179997205734253
+
+-------------Round number: 16-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0186
+Averaged Test MAE: 3.9069
+Averaged Test RMSE: 4.2317
+Std Test MAE: 0.9407
+Std Test RMSE: 1.0802
+------------------------- time cost ------------------------- 4.512908935546875
+
+-------------Round number: 17-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0182
+Averaged Test MAE: 3.8957
+Averaged Test RMSE: 4.2229
+Std Test MAE: 1.0080
+Std Test RMSE: 1.1629
+------------------------- time cost ------------------------- 4.886101484298706
+
+-------------Round number: 18-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8810
+Averaged Test RMSE: 4.2097
+Std Test MAE: 0.9843
+Std Test RMSE: 1.1313
+------------------------- time cost ------------------------- 4.663549184799194
+
+-------------Round number: 19-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0182
+Averaged Test MAE: 3.8783
+Averaged Test RMSE: 4.2066
+Std Test MAE: 0.9881
+Std Test RMSE: 1.1360
+------------------------- time cost ------------------------- 4.47947096824646
+
+-------------Round number: 20-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0183
+Averaged Test MAE: 3.8734
+Averaged Test RMSE: 4.2016
+Std Test MAE: 0.9629
+Std Test RMSE: 1.1049
+------------------------- time cost ------------------------- 5.177030324935913
+
+-------------Round number: 21-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0123
+Averaged Test MAE: 2.9841
+Averaged Test RMSE: 3.2899
+Std Test MAE: 0.9617
+Std Test RMSE: 1.1007
+------------------------- time cost ------------------------- 4.567327260971069
+
+-------------Round number: 22-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0116
+Averaged Test MAE: 2.6000
+Averaged Test RMSE: 2.9404
+Std Test MAE: 0.9318
+Std Test RMSE: 1.0783
+------------------------- time cost ------------------------- 4.907813787460327
+
+-------------Round number: 23-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0112
+Averaged Test MAE: 2.5735
+Averaged Test RMSE: 2.8936
+Std Test MAE: 0.9183
+Std Test RMSE: 1.0553
+------------------------- time cost ------------------------- 4.792133569717407
+
+-------------Round number: 24-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0112
+Averaged Test MAE: 2.5287
+Averaged Test RMSE: 2.8748
+Std Test MAE: 0.8969
+Std Test RMSE: 1.0307
+------------------------- time cost ------------------------- 4.707921028137207
+
+-------------Round number: 25-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0108
+Averaged Test MAE: 2.4756
+Averaged Test RMSE: 2.8060
+Std Test MAE: 0.8961
+Std Test RMSE: 1.0284
+------------------------- time cost ------------------------- 5.250093221664429
+
+-------------Round number: 26-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0109
+Averaged Test MAE: 2.4509
+Averaged Test RMSE: 2.7887
+Std Test MAE: 0.9081
+Std Test RMSE: 1.0491
+------------------------- time cost ------------------------- 4.634371042251587
+
+-------------Round number: 27-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0110
+Averaged Test MAE: 2.4793
+Averaged Test RMSE: 2.8174
+Std Test MAE: 0.8907
+Std Test RMSE: 1.0245
+------------------------- time cost ------------------------- 4.7443153858184814
+
+-------------Round number: 28-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0109
+Averaged Test MAE: 2.4194
+Averaged Test RMSE: 2.7707
+Std Test MAE: 0.8527
+Std Test RMSE: 0.9843
+------------------------- time cost ------------------------- 4.992768049240112
+
+-------------Round number: 29-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0113
+Averaged Test MAE: 2.5786
+Averaged Test RMSE: 2.9074
+Std Test MAE: 0.7873
+Std Test RMSE: 0.9016
+------------------------- time cost ------------------------- 4.616811037063599
+
+-------------Round number: 30-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0107
+Averaged Test MAE: 2.4599
+Averaged Test RMSE: 2.7971
+Std Test MAE: 0.8052
+Std Test RMSE: 0.9331
+------------------------- time cost ------------------------- 5.142786502838135
+
+-------------Round number: 31-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0102
+Averaged Test MAE: 2.3282
+Averaged Test RMSE: 2.6980
+Std Test MAE: 0.8160
+Std Test RMSE: 0.9515
+------------------------- time cost ------------------------- 4.616387605667114
+
+-------------Round number: 32-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0100
+Averaged Test MAE: 2.3509
+Averaged Test RMSE: 2.7040
+Std Test MAE: 0.8134
+Std Test RMSE: 0.9532
+------------------------- time cost ------------------------- 4.919400691986084
+
+-------------Round number: 33-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0101
+Averaged Test MAE: 2.3816
+Averaged Test RMSE: 2.7303
+Std Test MAE: 0.7667
+Std Test RMSE: 0.9000
+------------------------- time cost ------------------------- 5.150981664657593
+
+-------------Round number: 34-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0097
+Averaged Test MAE: 2.3243
+Averaged Test RMSE: 2.6730
+Std Test MAE: 0.7903
+Std Test RMSE: 0.9284
+------------------------- time cost ------------------------- 4.515942573547363
+
+-------------Round number: 35-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0098
+Averaged Test MAE: 2.3595
+Averaged Test RMSE: 2.7051
+Std Test MAE: 0.7376
+Std Test RMSE: 0.8664
+------------------------- time cost ------------------------- 5.223676681518555
+
+-------------Round number: 36-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0096
+Averaged Test MAE: 2.2849
+Averaged Test RMSE: 2.6433
+Std Test MAE: 0.7796
+Std Test RMSE: 0.9231
+------------------------- time cost ------------------------- 4.714920282363892
+
+-------------Round number: 37-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0094
+Averaged Test MAE: 2.2425
+Averaged Test RMSE: 2.6139
+Std Test MAE: 0.7834
+Std Test RMSE: 0.9300
+------------------------- time cost ------------------------- 4.906330108642578
+
+-------------Round number: 38-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0093
+Averaged Test MAE: 2.2363
+Averaged Test RMSE: 2.6049
+Std Test MAE: 0.7972
+Std Test RMSE: 0.9520
+------------------------- time cost ------------------------- 5.0101048946380615
+
+-------------Round number: 39-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0092
+Averaged Test MAE: 2.2536
+Averaged Test RMSE: 2.6160
+Std Test MAE: 0.7772
+Std Test RMSE: 0.9296
+------------------------- time cost ------------------------- 4.650271654129028
+
+-------------Round number: 40-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0092
+Averaged Test MAE: 2.2196
+Averaged Test RMSE: 2.5865
+Std Test MAE: 0.7438
+Std Test RMSE: 0.8876
+------------------------- time cost ------------------------- 5.299191236495972
+
+-------------Round number: 41-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0090
+Averaged Test MAE: 2.2107
+Averaged Test RMSE: 2.5763
+Std Test MAE: 0.7628
+Std Test RMSE: 0.9105
+------------------------- time cost ------------------------- 4.680511951446533
+
+-------------Round number: 42-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0090
+Averaged Test MAE: 2.2071
+Averaged Test RMSE: 2.5724
+Std Test MAE: 0.6964
+Std Test RMSE: 0.8338
+------------------------- time cost ------------------------- 4.76115870475769
+
+-------------Round number: 43-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0090
+Averaged Test MAE: 2.2399
+Averaged Test RMSE: 2.5958
+Std Test MAE: 0.7372
+Std Test RMSE: 0.8861
+------------------------- time cost ------------------------- 5.195730447769165
+
+-------------Round number: 44-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0088
+Averaged Test MAE: 2.2013
+Averaged Test RMSE: 2.5635
+Std Test MAE: 0.6846
+Std Test RMSE: 0.8246
+------------------------- time cost ------------------------- 4.643961429595947
+
+-------------Round number: 45-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0088
+Averaged Test MAE: 2.1585
+Averaged Test RMSE: 2.5327
+Std Test MAE: 0.7544
+Std Test RMSE: 0.9164
+------------------------- time cost ------------------------- 5.289561986923218
+
+-------------Round number: 46-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0088
+Averaged Test MAE: 2.2181
+Averaged Test RMSE: 2.5745
+Std Test MAE: 0.6761
+Std Test RMSE: 0.8167
+------------------------- time cost ------------------------- 4.56031608581543
+
+-------------Round number: 47-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0087
+Averaged Test MAE: 2.2072
+Averaged Test RMSE: 2.5592
+Std Test MAE: 0.7133
+Std Test RMSE: 0.8626
+------------------------- time cost ------------------------- 4.498581647872925
+
+-------------Round number: 48-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0088
+Averaged Test MAE: 2.2167
+Averaged Test RMSE: 2.5795
+Std Test MAE: 0.6490
+Std Test RMSE: 0.7879
+------------------------- time cost ------------------------- 5.248560905456543
+
+-------------Round number: 49-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0089
+Averaged Test MAE: 2.2546
+Averaged Test RMSE: 2.6074
+Std Test MAE: 0.6528
+Std Test RMSE: 0.7840
+------------------------- time cost ------------------------- 4.548734426498413
+
+-------------Round number: 50-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0085
+Averaged Test MAE: 2.1941
+Averaged Test RMSE: 2.5532
+Std Test MAE: 0.6678
+Std Test RMSE: 0.8120
+------------------------- time cost ------------------------- 5.156570911407471
+
+-------------Round number: 51-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0086
+Averaged Test MAE: 2.1233
+Averaged Test RMSE: 2.5051
+Std Test MAE: 0.6672
+Std Test RMSE: 0.8159
+------------------------- time cost ------------------------- 4.396573781967163
+
+-------------Round number: 52-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0085
+Averaged Test MAE: 2.1226
+Averaged Test RMSE: 2.4961
+Std Test MAE: 0.6851
+Std Test RMSE: 0.8373
+------------------------- time cost ------------------------- 4.70443868637085
+
+-------------Round number: 53-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0084
+Averaged Test MAE: 2.1294
+Averaged Test RMSE: 2.5007
+Std Test MAE: 0.6630
+Std Test RMSE: 0.8181
+------------------------- time cost ------------------------- 5.311396360397339
+
+-------------Round number: 54-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0085
+Averaged Test MAE: 2.2059
+Averaged Test RMSE: 2.5564
+Std Test MAE: 0.6864
+Std Test RMSE: 0.8407
+------------------------- time cost ------------------------- 4.8132994174957275
+
+-------------Round number: 55-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0083
+Averaged Test MAE: 2.1088
+Averaged Test RMSE: 2.4729
+Std Test MAE: 0.6582
+Std Test RMSE: 0.8121
+------------------------- time cost ------------------------- 5.487561225891113
+
+-------------Round number: 56-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0083
+Averaged Test MAE: 2.1023
+Averaged Test RMSE: 2.4743
+Std Test MAE: 0.6649
+Std Test RMSE: 0.8203
+------------------------- time cost ------------------------- 4.741189479827881
+
+-------------Round number: 57-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0084
+Averaged Test MAE: 2.1634
+Averaged Test RMSE: 2.5232
+Std Test MAE: 0.6279
+Std Test RMSE: 0.7727
+------------------------- time cost ------------------------- 4.968480348587036
+
+-------------Round number: 58-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0084
+Averaged Test MAE: 2.1533
+Averaged Test RMSE: 2.5159
+Std Test MAE: 0.6523
+Std Test RMSE: 0.8009
+------------------------- time cost ------------------------- 5.290621757507324
+
+-------------Round number: 59-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0083
+Averaged Test MAE: 2.1185
+Averaged Test RMSE: 2.4911
+Std Test MAE: 0.6211
+Std Test RMSE: 0.7661
+------------------------- time cost ------------------------- 4.604167222976685
+
+-------------Round number: 60-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0083
+Averaged Test MAE: 2.1088
+Averaged Test RMSE: 2.4815
+Std Test MAE: 0.6488
+Std Test RMSE: 0.8058
+------------------------- time cost ------------------------- 5.4476258754730225
+
+-------------Round number: 61-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0082
+Averaged Test MAE: 2.1192
+Averaged Test RMSE: 2.4774
+Std Test MAE: 0.6340
+Std Test RMSE: 0.7795
+------------------------- time cost ------------------------- 4.815917491912842
+
+-------------Round number: 62-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0085
+Averaged Test MAE: 2.2416
+Averaged Test RMSE: 2.5871
+Std Test MAE: 0.6120
+Std Test RMSE: 0.7508
+------------------------- time cost ------------------------- 5.071940898895264
+
+-------------Round number: 63-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0081
+Averaged Test MAE: 2.0255
+Averaged Test RMSE: 2.4155
+Std Test MAE: 0.6808
+Std Test RMSE: 0.8457
+------------------------- time cost ------------------------- 5.013484477996826
+
+-------------Round number: 64-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0082
+Averaged Test MAE: 2.0598
+Averaged Test RMSE: 2.4453
+Std Test MAE: 0.6576
+Std Test RMSE: 0.8184
+------------------------- time cost ------------------------- 4.80088996887207
+
+-------------Round number: 65-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0080
+Averaged Test MAE: 2.0127
+Averaged Test RMSE: 2.4043
+Std Test MAE: 0.6781
+Std Test RMSE: 0.8438
+------------------------- time cost ------------------------- 5.32345724105835
+
+-------------Round number: 66-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0080
+Averaged Test MAE: 2.0125
+Averaged Test RMSE: 2.4029
+Std Test MAE: 0.6552
+Std Test RMSE: 0.8227
+------------------------- time cost ------------------------- 4.699915885925293
+
+-------------Round number: 67-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0080
+Averaged Test MAE: 2.0142
+Averaged Test RMSE: 2.4067
+Std Test MAE: 0.6523
+Std Test RMSE: 0.8161
+------------------------- time cost ------------------------- 4.756799697875977
+
+-------------Round number: 68-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0081
+Averaged Test MAE: 2.1181
+Averaged Test RMSE: 2.4791
+Std Test MAE: 0.6385
+Std Test RMSE: 0.7908
+------------------------- time cost ------------------------- 5.110172510147095
+
+-------------Round number: 69-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0079
+Averaged Test MAE: 2.1132
+Averaged Test RMSE: 2.4754
+Std Test MAE: 0.6186
+Std Test RMSE: 0.7679
+------------------------- time cost ------------------------- 4.707790851593018
+
+-------------Round number: 70-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0080
+Averaged Test MAE: 2.0562
+Averaged Test RMSE: 2.4389
+Std Test MAE: 0.6291
+Std Test RMSE: 0.7880
+------------------------- time cost ------------------------- 5.173426151275635
+
+-------------Round number: 71-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0079
+Averaged Test MAE: 2.0099
+Averaged Test RMSE: 2.4068
+Std Test MAE: 0.6569
+Std Test RMSE: 0.8278
+------------------------- time cost ------------------------- 4.669277906417847
+
+-------------Round number: 72-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0002
+Averaged Test RMSE: 2.4028
+Std Test MAE: 0.6875
+Std Test RMSE: 0.8575
+------------------------- time cost ------------------------- 5.053858995437622
+
+-------------Round number: 73-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0711
+Averaged Test RMSE: 2.4403
+Std Test MAE: 0.6378
+Std Test RMSE: 0.7982
+------------------------- time cost ------------------------- 5.0331926345825195
+
+-------------Round number: 74-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0079
+Averaged Test MAE: 2.0833
+Averaged Test RMSE: 2.4564
+Std Test MAE: 0.6373
+Std Test RMSE: 0.7940
+------------------------- time cost ------------------------- 4.679078817367554
+
+-------------Round number: 75-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0079
+Averaged Test MAE: 2.0529
+Averaged Test RMSE: 2.4411
+Std Test MAE: 0.6283
+Std Test RMSE: 0.7834
+------------------------- time cost ------------------------- 5.181999921798706
+
+-------------Round number: 76-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0079
+Averaged Test MAE: 2.0928
+Averaged Test RMSE: 2.4606
+Std Test MAE: 0.6245
+Std Test RMSE: 0.7736
+------------------------- time cost ------------------------- 4.751970529556274
+
+-------------Round number: 77-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0135
+Averaged Test RMSE: 2.4043
+Std Test MAE: 0.6371
+Std Test RMSE: 0.7968
+------------------------- time cost ------------------------- 4.999594449996948
+
+-------------Round number: 78-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0118
+Averaged Test RMSE: 2.3971
+Std Test MAE: 0.6594
+Std Test RMSE: 0.8219
+------------------------- time cost ------------------------- 4.929490327835083
+
+-------------Round number: 79-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0779
+Averaged Test RMSE: 2.4489
+Std Test MAE: 0.6237
+Std Test RMSE: 0.7761
+------------------------- time cost ------------------------- 4.558958053588867
+
+-------------Round number: 80-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0372
+Averaged Test RMSE: 2.4260
+Std Test MAE: 0.6366
+Std Test RMSE: 0.7981
+------------------------- time cost ------------------------- 5.31072998046875
+
+-------------Round number: 81-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 1.9819
+Averaged Test RMSE: 2.3821
+Std Test MAE: 0.6746
+Std Test RMSE: 0.8376
+------------------------- time cost ------------------------- 4.670188903808594
+
+-------------Round number: 82-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0635
+Averaged Test RMSE: 2.4351
+Std Test MAE: 0.6176
+Std Test RMSE: 0.7667
+------------------------- time cost ------------------------- 5.066478967666626
+
+-------------Round number: 83-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.0004
+Averaged Test RMSE: 2.3853
+Std Test MAE: 0.6561
+Std Test RMSE: 0.8181
+------------------------- time cost ------------------------- 4.728885889053345
+
+-------------Round number: 84-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.0335
+Averaged Test RMSE: 2.4098
+Std Test MAE: 0.6406
+Std Test RMSE: 0.7939
+------------------------- time cost ------------------------- 4.675410985946655
+
+-------------Round number: 85-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0080
+Averaged Test MAE: 2.1402
+Averaged Test RMSE: 2.5141
+Std Test MAE: 0.5938
+Std Test RMSE: 0.7425
+------------------------- time cost ------------------------- 5.350584506988525
+
+-------------Round number: 86-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 1.9714
+Averaged Test RMSE: 2.3711
+Std Test MAE: 0.6579
+Std Test RMSE: 0.8172
+------------------------- time cost ------------------------- 4.668651342391968
+
+-------------Round number: 87-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.0221
+Averaged Test RMSE: 2.4150
+Std Test MAE: 0.6113
+Std Test RMSE: 0.7697
+------------------------- time cost ------------------------- 4.869939565658569
+
+-------------Round number: 88-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.0639
+Averaged Test RMSE: 2.4411
+Std Test MAE: 0.6068
+Std Test RMSE: 0.7526
+------------------------- time cost ------------------------- 4.98418402671814
+
+-------------Round number: 89-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0149
+Averaged Test RMSE: 2.3902
+Std Test MAE: 0.6466
+Std Test RMSE: 0.7986
+------------------------- time cost ------------------------- 4.669749975204468
+
+-------------Round number: 90-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.0849
+Averaged Test RMSE: 2.4510
+Std Test MAE: 0.6072
+Std Test RMSE: 0.7522
+------------------------- time cost ------------------------- 5.150165557861328
+
+-------------Round number: 91-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.0885
+Averaged Test RMSE: 2.4528
+Std Test MAE: 0.6088
+Std Test RMSE: 0.7562
+------------------------- time cost ------------------------- 4.676768779754639
+
+-------------Round number: 92-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0076
+Averaged Test MAE: 2.0292
+Averaged Test RMSE: 2.4106
+Std Test MAE: 0.6267
+Std Test RMSE: 0.7792
+------------------------- time cost ------------------------- 4.9833714962005615
+
+-------------Round number: 93-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 1.9779
+Averaged Test RMSE: 2.3715
+Std Test MAE: 0.6307
+Std Test RMSE: 0.7842
+------------------------- time cost ------------------------- 4.953981161117554
+
+-------------Round number: 94-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 1.9601
+Averaged Test RMSE: 2.3576
+Std Test MAE: 0.6379
+Std Test RMSE: 0.7917
+------------------------- time cost ------------------------- 4.506455898284912
+
+-------------Round number: 95-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 1.9890
+Averaged Test RMSE: 2.3722
+Std Test MAE: 0.6328
+Std Test RMSE: 0.7828
+------------------------- time cost ------------------------- 5.267665147781372
+
+-------------Round number: 96-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.1200
+Averaged Test RMSE: 2.4809
+Std Test MAE: 0.5990
+Std Test RMSE: 0.7362
+------------------------- time cost ------------------------- 4.648158073425293
+
+-------------Round number: 97-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0222
+Averaged Test RMSE: 2.4044
+Std Test MAE: 0.6005
+Std Test RMSE: 0.7452
+------------------------- time cost ------------------------- 5.051713466644287
+
+-------------Round number: 98-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0047
+Averaged Test RMSE: 2.3912
+Std Test MAE: 0.6284
+Std Test RMSE: 0.7756
+------------------------- time cost ------------------------- 5.099660873413086
+
+-------------Round number: 99-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 1.9704
+Averaged Test RMSE: 2.3670
+Std Test MAE: 0.6319
+Std Test RMSE: 0.7805
+------------------------- time cost ------------------------- 4.479768753051758
+
+-------------Round number: 100-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 1.9702
+Averaged Test RMSE: 2.3732
+Std Test MAE: 0.6291
+Std Test RMSE: 0.7854
+------------------------- time cost ------------------------- 5.21025276184082
+
+-------------Round number: 101-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0076
+Averaged Test MAE: 2.0465
+Averaged Test RMSE: 2.4245
+Std Test MAE: 0.5874
+Std Test RMSE: 0.7229
+------------------------- time cost ------------------------- 4.695544719696045
+
+-------------Round number: 102-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0076
+Averaged Test MAE: 2.0816
+Averaged Test RMSE: 2.4552
+Std Test MAE: 0.5823
+Std Test RMSE: 0.7225
+------------------------- time cost ------------------------- 4.980759382247925
+
+-------------Round number: 103-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0073
+Averaged Test MAE: 1.9744
+Averaged Test RMSE: 2.3622
+Std Test MAE: 0.6227
+Std Test RMSE: 0.7708
+------------------------- time cost ------------------------- 4.818271636962891
+
+-------------Round number: 104-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0078
+Averaged Test MAE: 2.1166
+Averaged Test RMSE: 2.4956
+Std Test MAE: 0.5388
+Std Test RMSE: 0.6678
+------------------------- time cost ------------------------- 4.706993341445923
+
+-------------Round number: 105-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0534
+Averaged Test RMSE: 2.4251
+Std Test MAE: 0.5967
+Std Test RMSE: 0.7349
+------------------------- time cost ------------------------- 5.2620837688446045
+
+-------------Round number: 106-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0540
+Averaged Test RMSE: 2.4326
+Std Test MAE: 0.5858
+Std Test RMSE: 0.7288
+------------------------- time cost ------------------------- 4.525601148605347
+
+-------------Round number: 107-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0073
+Averaged Test MAE: 1.9756
+Averaged Test RMSE: 2.3600
+Std Test MAE: 0.6212
+Std Test RMSE: 0.7718
+------------------------- time cost ------------------------- 5.04021430015564
+
+-------------Round number: 108-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 2.0469
+Averaged Test RMSE: 2.4245
+Std Test MAE: 0.5816
+Std Test RMSE: 0.7268
+------------------------- time cost ------------------------- 5.0379228591918945
+
+-------------Round number: 109-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 1.9751
+Averaged Test RMSE: 2.3752
+Std Test MAE: 0.6150
+Std Test RMSE: 0.7683
+------------------------- time cost ------------------------- 4.677358627319336
+
+-------------Round number: 110-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 2.0268
+Averaged Test RMSE: 2.3992
+Std Test MAE: 0.5933
+Std Test RMSE: 0.7349
+------------------------- time cost ------------------------- 5.175219535827637
+
+-------------Round number: 111-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0347
+Averaged Test RMSE: 2.4230
+Std Test MAE: 0.5632
+Std Test RMSE: 0.7085
+------------------------- time cost ------------------------- 4.6840808391571045
+
+-------------Round number: 112-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9486
+Averaged Test RMSE: 2.3343
+Std Test MAE: 0.6270
+Std Test RMSE: 0.7878
+------------------------- time cost ------------------------- 5.030028343200684
+
+-------------Round number: 113-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0073
+Averaged Test MAE: 2.0354
+Averaged Test RMSE: 2.4089
+Std Test MAE: 0.5797
+Std Test RMSE: 0.7311
+------------------------- time cost ------------------------- 4.998272180557251
+
+-------------Round number: 114-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 2.0232
+Averaged Test RMSE: 2.4044
+Std Test MAE: 0.5811
+Std Test RMSE: 0.7305
+------------------------- time cost ------------------------- 4.667884349822998
+
+-------------Round number: 115-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0073
+Averaged Test MAE: 1.9632
+Averaged Test RMSE: 2.3508
+Std Test MAE: 0.5878
+Std Test RMSE: 0.7371
+------------------------- time cost ------------------------- 5.141146421432495
+
+-------------Round number: 116-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0072
+Averaged Test MAE: 1.9800
+Averaged Test RMSE: 2.3597
+Std Test MAE: 0.6075
+Std Test RMSE: 0.7613
+------------------------- time cost ------------------------- 4.63327693939209
+
+-------------Round number: 117-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0074
+Averaged Test MAE: 2.0409
+Averaged Test RMSE: 2.4139
+Std Test MAE: 0.5722
+Std Test RMSE: 0.7227
+------------------------- time cost ------------------------- 4.983983278274536
+
+-------------Round number: 118-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9885
+Averaged Test RMSE: 2.3590
+Std Test MAE: 0.6248
+Std Test RMSE: 0.7855
+------------------------- time cost ------------------------- 4.806313514709473
+
+-------------Round number: 119-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.1001
+Averaged Test RMSE: 2.4658
+Std Test MAE: 0.5359
+Std Test RMSE: 0.6705
+------------------------- time cost ------------------------- 4.560611009597778
+
+-------------Round number: 120-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0545
+Averaged Test RMSE: 2.4365
+Std Test MAE: 0.5329
+Std Test RMSE: 0.6711
+------------------------- time cost ------------------------- 5.076073169708252
+
+-------------Round number: 121-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9686
+Averaged Test RMSE: 2.3518
+Std Test MAE: 0.5859
+Std Test RMSE: 0.7467
+------------------------- time cost ------------------------- 4.530787706375122
+
+-------------Round number: 122-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0077
+Averaged Test MAE: 2.1067
+Averaged Test RMSE: 2.4822
+Std Test MAE: 0.5156
+Std Test RMSE: 0.6561
+------------------------- time cost ------------------------- 4.855328559875488
+
+-------------Round number: 123-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9540
+Averaged Test RMSE: 2.3374
+Std Test MAE: 0.5933
+Std Test RMSE: 0.7517
+------------------------- time cost ------------------------- 5.094933986663818
+
+-------------Round number: 124-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9086
+Averaged Test RMSE: 2.3095
+Std Test MAE: 0.6094
+Std Test RMSE: 0.7680
+------------------------- time cost ------------------------- 4.626004695892334
+
+-------------Round number: 125-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9529
+Averaged Test RMSE: 2.3278
+Std Test MAE: 0.6044
+Std Test RMSE: 0.7587
+------------------------- time cost ------------------------- 5.182159423828125
+
+-------------Round number: 126-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9650
+Averaged Test RMSE: 2.3409
+Std Test MAE: 0.5955
+Std Test RMSE: 0.7516
+------------------------- time cost ------------------------- 4.366704702377319
+
+-------------Round number: 127-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9934
+Averaged Test RMSE: 2.3642
+Std Test MAE: 0.5790
+Std Test RMSE: 0.7264
+------------------------- time cost ------------------------- 4.575565338134766
+
+-------------Round number: 128-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 1.9435
+Averaged Test RMSE: 2.3200
+Std Test MAE: 0.6043
+Std Test RMSE: 0.7610
+------------------------- time cost ------------------------- 5.176942825317383
+
+-------------Round number: 129-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9653
+Averaged Test RMSE: 2.3521
+Std Test MAE: 0.5798
+Std Test RMSE: 0.7415
+------------------------- time cost ------------------------- 4.471577405929565
+
+-------------Round number: 130-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0075
+Averaged Test MAE: 2.0667
+Averaged Test RMSE: 2.4428
+Std Test MAE: 0.5254
+Std Test RMSE: 0.6651
+------------------------- time cost ------------------------- 5.0088722705841064
+
+-------------Round number: 131-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9746
+Averaged Test RMSE: 2.3595
+Std Test MAE: 0.5821
+Std Test RMSE: 0.7365
+------------------------- time cost ------------------------- 4.462226152420044
+
+-------------Round number: 132-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9592
+Averaged Test RMSE: 2.3512
+Std Test MAE: 0.6006
+Std Test RMSE: 0.7577
+------------------------- time cost ------------------------- 4.544790744781494
+
+-------------Round number: 133-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9897
+Averaged Test RMSE: 2.3637
+Std Test MAE: 0.5799
+Std Test RMSE: 0.7248
+------------------------- time cost ------------------------- 4.99246072769165
+
+-------------Round number: 134-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9721
+Averaged Test RMSE: 2.3418
+Std Test MAE: 0.6064
+Std Test RMSE: 0.7562
+------------------------- time cost ------------------------- 4.513860702514648
+
+-------------Round number: 135-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9525
+Averaged Test RMSE: 2.3324
+Std Test MAE: 0.6096
+Std Test RMSE: 0.7636
+------------------------- time cost ------------------------- 4.937196731567383
+
+-------------Round number: 136-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9924
+Averaged Test RMSE: 2.3702
+Std Test MAE: 0.5627
+Std Test RMSE: 0.7125
+------------------------- time cost ------------------------- 4.8676598072052
+
+-------------Round number: 137-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 2.0196
+Averaged Test RMSE: 2.3905
+Std Test MAE: 0.5502
+Std Test RMSE: 0.6954
+------------------------- time cost ------------------------- 4.311802625656128
+
+-------------Round number: 138-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9792
+Averaged Test RMSE: 2.3691
+Std Test MAE: 0.5657
+Std Test RMSE: 0.7203
+------------------------- time cost ------------------------- 5.090831756591797
+
+-------------Round number: 139-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 1.9439
+Averaged Test RMSE: 2.3302
+Std Test MAE: 0.5792
+Std Test RMSE: 0.7334
+------------------------- time cost ------------------------- 4.52249813079834
+
+-------------Round number: 140-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 2.0015
+Averaged Test RMSE: 2.3779
+Std Test MAE: 0.5637
+Std Test RMSE: 0.7197
+------------------------- time cost ------------------------- 4.717429876327515
+
+-------------Round number: 141-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9806
+Averaged Test RMSE: 2.3589
+Std Test MAE: 0.5681
+Std Test RMSE: 0.7220
+------------------------- time cost ------------------------- 4.989068269729614
+
+-------------Round number: 142-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9328
+Averaged Test RMSE: 2.3064
+Std Test MAE: 0.6127
+Std Test RMSE: 0.7735
+------------------------- time cost ------------------------- 4.44365119934082
+
+-------------Round number: 143-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 2.0212
+Averaged Test RMSE: 2.3899
+Std Test MAE: 0.5478
+Std Test RMSE: 0.6945
+------------------------- time cost ------------------------- 5.15332555770874
+
+-------------Round number: 144-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 2.0025
+Averaged Test RMSE: 2.3809
+Std Test MAE: 0.5478
+Std Test RMSE: 0.7021
+------------------------- time cost ------------------------- 4.517152786254883
+
+-------------Round number: 145-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9975
+Averaged Test RMSE: 2.3742
+Std Test MAE: 0.5612
+Std Test RMSE: 0.7202
+------------------------- time cost ------------------------- 4.532098054885864
+
+-------------Round number: 146-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9951
+Averaged Test RMSE: 2.3764
+Std Test MAE: 0.5430
+Std Test RMSE: 0.6951
+------------------------- time cost ------------------------- 5.039157390594482
+
+-------------Round number: 147-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 1.9303
+Averaged Test RMSE: 2.3208
+Std Test MAE: 0.5820
+Std Test RMSE: 0.7462
+------------------------- time cost ------------------------- 4.507448196411133
+
+-------------Round number: 148-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0072
+Averaged Test MAE: 2.0475
+Averaged Test RMSE: 2.4251
+Std Test MAE: 0.5315
+Std Test RMSE: 0.6682
+------------------------- time cost ------------------------- 4.903892278671265
+
+-------------Round number: 149-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 2.0030
+Averaged Test RMSE: 2.3637
+Std Test MAE: 0.5822
+Std Test RMSE: 0.7377
+------------------------- time cost ------------------------- 4.684645652770996
+
+-------------Round number: 150-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0072
+Averaged Test MAE: 2.0241
+Averaged Test RMSE: 2.4054
+Std Test MAE: 0.5333
+Std Test RMSE: 0.6784
+------------------------- time cost ------------------------- 4.347843408584595
+
+-------------Round number: 151-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9719
+Averaged Test RMSE: 2.3561
+Std Test MAE: 0.5559
+Std Test RMSE: 0.7107
+------------------------- time cost ------------------------- 5.144835948944092
+
+-------------Round number: 152-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9572
+Averaged Test RMSE: 2.3348
+Std Test MAE: 0.5623
+Std Test RMSE: 0.7122
+------------------------- time cost ------------------------- 4.468703508377075
+
+-------------Round number: 153-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0071
+Averaged Test MAE: 1.9923
+Averaged Test RMSE: 2.3680
+Std Test MAE: 0.5699
+Std Test RMSE: 0.7273
+------------------------- time cost ------------------------- 4.689148664474487
+
+-------------Round number: 154-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9260
+Averaged Test RMSE: 2.3079
+Std Test MAE: 0.5798
+Std Test RMSE: 0.7423
+------------------------- time cost ------------------------- 4.860158920288086
+
+-------------Round number: 155-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9449
+Averaged Test RMSE: 2.3276
+Std Test MAE: 0.5671
+Std Test RMSE: 0.7253
+------------------------- time cost ------------------------- 4.490208387374878
+
+-------------Round number: 156-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 1.9355
+Averaged Test RMSE: 2.3226
+Std Test MAE: 0.5735
+Std Test RMSE: 0.7302
+------------------------- time cost ------------------------- 5.168842077255249
+
+-------------Round number: 157-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9738
+Averaged Test RMSE: 2.3459
+Std Test MAE: 0.5569
+Std Test RMSE: 0.7118
+------------------------- time cost ------------------------- 4.3170859813690186
+
+-------------Round number: 158-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9754
+Averaged Test RMSE: 2.3665
+Std Test MAE: 0.5359
+Std Test RMSE: 0.6831
+------------------------- time cost ------------------------- 4.588268518447876
+
+-------------Round number: 159-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9494
+Averaged Test RMSE: 2.3300
+Std Test MAE: 0.5597
+Std Test RMSE: 0.7139
+------------------------- time cost ------------------------- 5.083883762359619
+
+-------------Round number: 160-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0072
+Averaged Test MAE: 2.0529
+Averaged Test RMSE: 2.4211
+Std Test MAE: 0.5326
+Std Test RMSE: 0.6671
+------------------------- time cost ------------------------- 4.480611562728882
+
+-------------Round number: 161-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0069
+Averaged Test MAE: 1.9625
+Averaged Test RMSE: 2.3343
+Std Test MAE: 0.5711
+Std Test RMSE: 0.7231
+------------------------- time cost ------------------------- 5.09941840171814
+
+-------------Round number: 162-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9971
+Averaged Test RMSE: 2.3678
+Std Test MAE: 0.5612
+Std Test RMSE: 0.7197
+------------------------- time cost ------------------------- 4.5148091316223145
+
+-------------Round number: 163-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 2.0367
+Averaged Test RMSE: 2.4079
+Std Test MAE: 0.5261
+Std Test RMSE: 0.6689
+------------------------- time cost ------------------------- 4.539628744125366
+
+-------------Round number: 164-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.9379
+Averaged Test RMSE: 2.3198
+Std Test MAE: 0.5726
+Std Test RMSE: 0.7312
+------------------------- time cost ------------------------- 5.121569633483887
+
+-------------Round number: 165-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0070
+Averaged Test MAE: 1.9789
+Averaged Test RMSE: 2.3664
+Std Test MAE: 0.5502
+Std Test RMSE: 0.7103
+------------------------- time cost ------------------------- 4.581210613250732
+
+-------------Round number: 166-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9412
+Averaged Test RMSE: 2.3240
+Std Test MAE: 0.5510
+Std Test RMSE: 0.7104
+------------------------- time cost ------------------------- 4.936400890350342
+
+-------------Round number: 167-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.9234
+Averaged Test RMSE: 2.2989
+Std Test MAE: 0.5764
+Std Test RMSE: 0.7345
+------------------------- time cost ------------------------- 5.0923686027526855
+
+-------------Round number: 168-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.9505
+Averaged Test RMSE: 2.3176
+Std Test MAE: 0.5805
+Std Test RMSE: 0.7427
+------------------------- time cost ------------------------- 4.614522457122803
+
+-------------Round number: 169-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9617
+Averaged Test RMSE: 2.3452
+Std Test MAE: 0.5425
+Std Test RMSE: 0.6939
+------------------------- time cost ------------------------- 5.128511667251587
+
+-------------Round number: 170-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.8984
+Averaged Test RMSE: 2.2846
+Std Test MAE: 0.5709
+Std Test RMSE: 0.7268
+------------------------- time cost ------------------------- 4.770625829696655
+
+-------------Round number: 171-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9141
+Averaged Test RMSE: 2.2871
+Std Test MAE: 0.5936
+Std Test RMSE: 0.7591
+------------------------- time cost ------------------------- 5.228534460067749
+
+-------------Round number: 172-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.8837
+Averaged Test RMSE: 2.2673
+Std Test MAE: 0.5892
+Std Test RMSE: 0.7486
+------------------------- time cost ------------------------- 5.022251605987549
+
+-------------Round number: 173-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9205
+Averaged Test RMSE: 2.2855
+Std Test MAE: 0.6162
+Std Test RMSE: 0.7751
+------------------------- time cost ------------------------- 4.81416392326355
+
+-------------Round number: 174-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9440
+Averaged Test RMSE: 2.3099
+Std Test MAE: 0.5849
+Std Test RMSE: 0.7399
+------------------------- time cost ------------------------- 5.330703973770142
+
+-------------Round number: 175-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9755
+Averaged Test RMSE: 2.3185
+Std Test MAE: 0.6037
+Std Test RMSE: 0.7590
+------------------------- time cost ------------------------- 4.724679470062256
+
+-------------Round number: 176-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.9065
+Averaged Test RMSE: 2.2951
+Std Test MAE: 0.5754
+Std Test RMSE: 0.7321
+------------------------- time cost ------------------------- 5.355746030807495
+
+-------------Round number: 177-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9103
+Averaged Test RMSE: 2.2901
+Std Test MAE: 0.5925
+Std Test RMSE: 0.7556
+------------------------- time cost ------------------------- 4.732354402542114
+
+-------------Round number: 178-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9246
+Averaged Test RMSE: 2.2911
+Std Test MAE: 0.5887
+Std Test RMSE: 0.7409
+------------------------- time cost ------------------------- 4.712453365325928
+
+-------------Round number: 179-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9179
+Averaged Test RMSE: 2.2918
+Std Test MAE: 0.5814
+Std Test RMSE: 0.7278
+------------------------- time cost ------------------------- 5.500682592391968
+
+-------------Round number: 180-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9275
+Averaged Test RMSE: 2.2928
+Std Test MAE: 0.5918
+Std Test RMSE: 0.7431
+------------------------- time cost ------------------------- 4.891755104064941
+
+-------------Round number: 181-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0067
+Averaged Test MAE: 1.9440
+Averaged Test RMSE: 2.3244
+Std Test MAE: 0.5637
+Std Test RMSE: 0.7069
+------------------------- time cost ------------------------- 5.42969822883606
+
+-------------Round number: 182-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.8992
+Averaged Test RMSE: 2.2632
+Std Test MAE: 0.6193
+Std Test RMSE: 0.7756
+------------------------- time cost ------------------------- 4.662121534347534
+
+-------------Round number: 183-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9145
+Averaged Test RMSE: 2.2791
+Std Test MAE: 0.5895
+Std Test RMSE: 0.7403
+------------------------- time cost ------------------------- 5.0035858154296875
+
+-------------Round number: 184-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9184
+Averaged Test RMSE: 2.2778
+Std Test MAE: 0.5750
+Std Test RMSE: 0.7186
+------------------------- time cost ------------------------- 5.385896921157837
+
+-------------Round number: 185-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0068
+Averaged Test MAE: 1.9791
+Averaged Test RMSE: 2.3288
+Std Test MAE: 0.5653
+Std Test RMSE: 0.7077
+------------------------- time cost ------------------------- 4.622803449630737
+
+-------------Round number: 186-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.8906
+Averaged Test RMSE: 2.2559
+Std Test MAE: 0.6095
+Std Test RMSE: 0.7609
+------------------------- time cost ------------------------- 5.50843620300293
+
+-------------Round number: 187-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9412
+Averaged Test RMSE: 2.3147
+Std Test MAE: 0.5664
+Std Test RMSE: 0.7052
+------------------------- time cost ------------------------- 4.844808578491211
+
+-------------Round number: 188-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0066
+Averaged Test MAE: 1.9399
+Averaged Test RMSE: 2.2987
+Std Test MAE: 0.5815
+Std Test RMSE: 0.7205
+------------------------- time cost ------------------------- 5.0165934562683105
+
+-------------Round number: 189-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9220
+Averaged Test RMSE: 2.2746
+Std Test MAE: 0.5853
+Std Test RMSE: 0.7284
+------------------------- time cost ------------------------- 5.189838409423828
+
+-------------Round number: 190-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9492
+Averaged Test RMSE: 2.3175
+Std Test MAE: 0.5790
+Std Test RMSE: 0.7212
+------------------------- time cost ------------------------- 4.871273040771484
+
+-------------Round number: 191-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9188
+Averaged Test RMSE: 2.2711
+Std Test MAE: 0.6304
+Std Test RMSE: 0.7714
+------------------------- time cost ------------------------- 5.436470985412598
+
+-------------Round number: 192-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.8865
+Averaged Test RMSE: 2.2450
+Std Test MAE: 0.6477
+Std Test RMSE: 0.7947
+------------------------- time cost ------------------------- 4.852413177490234
+
+-------------Round number: 193-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.9219
+Averaged Test RMSE: 2.2867
+Std Test MAE: 0.6056
+Std Test RMSE: 0.7398
+------------------------- time cost ------------------------- 4.997557878494263
+
+-------------Round number: 194-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9570
+Averaged Test RMSE: 2.3237
+Std Test MAE: 0.5643
+Std Test RMSE: 0.7043
+------------------------- time cost ------------------------- 5.075181007385254
+
+-------------Round number: 195-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9254
+Averaged Test RMSE: 2.2941
+Std Test MAE: 0.6173
+Std Test RMSE: 0.7610
+------------------------- time cost ------------------------- 4.714346885681152
+
+-------------Round number: 196-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0065
+Averaged Test MAE: 1.9403
+Averaged Test RMSE: 2.3071
+Std Test MAE: 0.5925
+Std Test RMSE: 0.7309
+------------------------- time cost ------------------------- 5.354967832565308
+
+-------------Round number: 197-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9191
+Averaged Test RMSE: 2.2613
+Std Test MAE: 0.6657
+Std Test RMSE: 0.8059
+------------------------- time cost ------------------------- 4.548138856887817
+
+-------------Round number: 198-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.9422
+Averaged Test RMSE: 2.3007
+Std Test MAE: 0.6245
+Std Test RMSE: 0.7545
+------------------------- time cost ------------------------- 5.179376602172852
+
+-------------Round number: 199-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9420
+Averaged Test RMSE: 2.2871
+Std Test MAE: 0.6478
+Std Test RMSE: 0.7841
+------------------------- time cost ------------------------- 5.502041816711426
+
+-------------Round number: 200-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.9481
+Averaged Test RMSE: 2.3087
+Std Test MAE: 0.5796
+Std Test RMSE: 0.7195
+------------------------- time cost ------------------------- 5.27192497253418
+
+-------------Round number: 201-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9225
+Averaged Test RMSE: 2.2774
+Std Test MAE: 0.6348
+Std Test RMSE: 0.7728
+------------------------- time cost ------------------------- 6.079245567321777
+
+-------------Round number: 202-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9134
+Averaged Test RMSE: 2.2587
+Std Test MAE: 0.6806
+Std Test RMSE: 0.8145
+------------------------- time cost ------------------------- 5.345524311065674
+
+-------------Round number: 203-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9377
+Averaged Test RMSE: 2.2934
+Std Test MAE: 0.6099
+Std Test RMSE: 0.7386
+------------------------- time cost ------------------------- 6.052196741104126
+
+-------------Round number: 204-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9119
+Averaged Test RMSE: 2.2604
+Std Test MAE: 0.6868
+Std Test RMSE: 0.8183
+------------------------- time cost ------------------------- 5.370383977890015
+
+-------------Round number: 205-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.9581
+Averaged Test RMSE: 2.3143
+Std Test MAE: 0.6016
+Std Test RMSE: 0.7307
+------------------------- time cost ------------------------- 5.888231992721558
+
+-------------Round number: 206-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0064
+Averaged Test MAE: 1.9666
+Averaged Test RMSE: 2.3215
+Std Test MAE: 0.5864
+Std Test RMSE: 0.7306
+------------------------- time cost ------------------------- 5.355859279632568
+
+-------------Round number: 207-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9297
+Averaged Test RMSE: 2.2779
+Std Test MAE: 0.6393
+Std Test RMSE: 0.7769
+------------------------- time cost ------------------------- 5.9146833419799805
+
+-------------Round number: 208-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9357
+Averaged Test RMSE: 2.2867
+Std Test MAE: 0.6270
+Std Test RMSE: 0.7621
+------------------------- time cost ------------------------- 5.484739065170288
+
+-------------Round number: 209-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9398
+Averaged Test RMSE: 2.2873
+Std Test MAE: 0.6353
+Std Test RMSE: 0.7638
+------------------------- time cost ------------------------- 5.333728075027466
+
+-------------Round number: 210-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9287
+Averaged Test RMSE: 2.2856
+Std Test MAE: 0.6259
+Std Test RMSE: 0.7633
+------------------------- time cost ------------------------- 6.135624408721924
+
+-------------Round number: 211-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9590
+Averaged Test RMSE: 2.3105
+Std Test MAE: 0.6465
+Std Test RMSE: 0.7772
+------------------------- time cost ------------------------- 5.441655397415161
+
+-------------Round number: 212-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9227
+Averaged Test RMSE: 2.2730
+Std Test MAE: 0.6631
+Std Test RMSE: 0.7957
+------------------------- time cost ------------------------- 6.248747825622559
+
+-------------Round number: 213-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9549
+Averaged Test RMSE: 2.3029
+Std Test MAE: 0.6306
+Std Test RMSE: 0.7595
+------------------------- time cost ------------------------- 5.382395029067993
+
+-------------Round number: 214-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9425
+Averaged Test RMSE: 2.2891
+Std Test MAE: 0.6102
+Std Test RMSE: 0.7426
+------------------------- time cost ------------------------- 6.173964500427246
+
+-------------Round number: 215-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9337
+Averaged Test RMSE: 2.2838
+Std Test MAE: 0.6539
+Std Test RMSE: 0.7869
+------------------------- time cost ------------------------- 5.559152603149414
+
+-------------Round number: 216-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9555
+Averaged Test RMSE: 2.3028
+Std Test MAE: 0.6061
+Std Test RMSE: 0.7406
+------------------------- time cost ------------------------- 5.949725866317749
+
+-------------Round number: 217-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9283
+Averaged Test RMSE: 2.2753
+Std Test MAE: 0.6436
+Std Test RMSE: 0.7770
+------------------------- time cost ------------------------- 5.40663743019104
+
+-------------Round number: 218-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9523
+Averaged Test RMSE: 2.2976
+Std Test MAE: 0.6455
+Std Test RMSE: 0.7724
+------------------------- time cost ------------------------- 6.060064315795898
+
+-------------Round number: 219-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9315
+Averaged Test RMSE: 2.2800
+Std Test MAE: 0.6197
+Std Test RMSE: 0.7567
+------------------------- time cost ------------------------- 5.599062204360962
+
+-------------Round number: 220-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9474
+Averaged Test RMSE: 2.2890
+Std Test MAE: 0.6623
+Std Test RMSE: 0.7909
+------------------------- time cost ------------------------- 5.897453546524048
+
+-------------Round number: 221-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9340
+Averaged Test RMSE: 2.2793
+Std Test MAE: 0.6245
+Std Test RMSE: 0.7564
+------------------------- time cost ------------------------- 6.109702110290527
+
+-------------Round number: 222-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0063
+Averaged Test MAE: 1.9621
+Averaged Test RMSE: 2.3067
+Std Test MAE: 0.6340
+Std Test RMSE: 0.7613
+------------------------- time cost ------------------------- 5.475901126861572
+
+-------------Round number: 223-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9370
+Averaged Test RMSE: 2.2806
+Std Test MAE: 0.6327
+Std Test RMSE: 0.7670
+------------------------- time cost ------------------------- 6.1205055713653564
+
+-------------Round number: 224-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9021
+Averaged Test RMSE: 2.2480
+Std Test MAE: 0.6457
+Std Test RMSE: 0.7870
+------------------------- time cost ------------------------- 5.4100096225738525
+
+-------------Round number: 225-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9543
+Averaged Test RMSE: 2.3025
+Std Test MAE: 0.6314
+Std Test RMSE: 0.7582
+------------------------- time cost ------------------------- 6.1816489696502686
+
+-------------Round number: 226-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9365
+Averaged Test RMSE: 2.2809
+Std Test MAE: 0.6603
+Std Test RMSE: 0.7894
+------------------------- time cost ------------------------- 5.419717788696289
+
+-------------Round number: 227-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9307
+Averaged Test RMSE: 2.2781
+Std Test MAE: 0.6269
+Std Test RMSE: 0.7553
+------------------------- time cost ------------------------- 6.103203535079956
+
+-------------Round number: 228-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9214
+Averaged Test RMSE: 2.2648
+Std Test MAE: 0.6667
+Std Test RMSE: 0.7967
+------------------------- time cost ------------------------- 5.2354896068573
+
+-------------Round number: 229-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9425
+Averaged Test RMSE: 2.2826
+Std Test MAE: 0.6609
+Std Test RMSE: 0.7925
+------------------------- time cost ------------------------- 6.002362489700317
+
+-------------Round number: 230-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9377
+Averaged Test RMSE: 2.2827
+Std Test MAE: 0.6597
+Std Test RMSE: 0.7956
+------------------------- time cost ------------------------- 5.4575324058532715
+
+-------------Round number: 231-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9332
+Averaged Test RMSE: 2.2801
+Std Test MAE: 0.6562
+Std Test RMSE: 0.7924
+------------------------- time cost ------------------------- 5.491183280944824
+
+-------------Round number: 232-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0062
+Averaged Test MAE: 1.9776
+Averaged Test RMSE: 2.3243
+Std Test MAE: 0.6241
+Std Test RMSE: 0.7479
+------------------------- time cost ------------------------- 6.066016674041748
+
+-------------Round number: 233-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9372
+Averaged Test RMSE: 2.2842
+Std Test MAE: 0.6226
+Std Test RMSE: 0.7563
+------------------------- time cost ------------------------- 5.393487215042114
+
+-------------Round number: 234-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9475
+Averaged Test RMSE: 2.2932
+Std Test MAE: 0.6167
+Std Test RMSE: 0.7517
+------------------------- time cost ------------------------- 5.978540420532227
+
+-------------Round number: 235-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9413
+Averaged Test RMSE: 2.2789
+Std Test MAE: 0.6558
+Std Test RMSE: 0.7891
+------------------------- time cost ------------------------- 5.488539457321167
+
+-------------Round number: 236-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9144
+Averaged Test RMSE: 2.2532
+Std Test MAE: 0.6851
+Std Test RMSE: 0.8249
+------------------------- time cost ------------------------- 6.15875506401062
+
+-------------Round number: 237-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9275
+Averaged Test RMSE: 2.2673
+Std Test MAE: 0.6758
+Std Test RMSE: 0.8094
+------------------------- time cost ------------------------- 5.434773921966553
+
+-------------Round number: 238-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9309
+Averaged Test RMSE: 2.2724
+Std Test MAE: 0.6509
+Std Test RMSE: 0.7862
+------------------------- time cost ------------------------- 5.932841062545776
+
+-------------Round number: 239-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9100
+Averaged Test RMSE: 2.2572
+Std Test MAE: 0.6292
+Std Test RMSE: 0.7648
+------------------------- time cost ------------------------- 5.234751224517822
+
+-------------Round number: 240-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9477
+Averaged Test RMSE: 2.2960
+Std Test MAE: 0.6265
+Std Test RMSE: 0.7607
+------------------------- time cost ------------------------- 5.369117736816406
+
+-------------Round number: 241-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0061
+Averaged Test MAE: 1.9447
+Averaged Test RMSE: 2.2869
+Std Test MAE: 0.6703
+Std Test RMSE: 0.8021
+------------------------- time cost ------------------------- 5.418411016464233
+
+-------------Round number: 242-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9265
+Averaged Test RMSE: 2.2750
+Std Test MAE: 0.6368
+Std Test RMSE: 0.7745
+------------------------- time cost ------------------------- 5.318538665771484
+
+-------------Round number: 243-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9232
+Averaged Test RMSE: 2.2667
+Std Test MAE: 0.6641
+Std Test RMSE: 0.7960
+------------------------- time cost ------------------------- 6.020219326019287
+
+-------------Round number: 244-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9400
+Averaged Test RMSE: 2.2750
+Std Test MAE: 0.6513
+Std Test RMSE: 0.7776
+------------------------- time cost ------------------------- 5.2427332401275635
+
+-------------Round number: 245-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9143
+Averaged Test RMSE: 2.2515
+Std Test MAE: 0.6860
+Std Test RMSE: 0.8192
+------------------------- time cost ------------------------- 5.905381202697754
+
+-------------Round number: 246-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9129
+Averaged Test RMSE: 2.2559
+Std Test MAE: 0.6444
+Std Test RMSE: 0.7845
+------------------------- time cost ------------------------- 5.114861249923706
+
+-------------Round number: 247-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9568
+Averaged Test RMSE: 2.2942
+Std Test MAE: 0.6395
+Std Test RMSE: 0.7669
+------------------------- time cost ------------------------- 5.983605623245239
+
+-------------Round number: 248-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9406
+Averaged Test RMSE: 2.2852
+Std Test MAE: 0.6435
+Std Test RMSE: 0.7813
+------------------------- time cost ------------------------- 5.345861196517944
+
+-------------Round number: 249-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9725
+Averaged Test RMSE: 2.3093
+Std Test MAE: 0.6569
+Std Test RMSE: 0.7851
+------------------------- time cost ------------------------- 5.504610776901245
+
+-------------Round number: 250-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9412
+Averaged Test RMSE: 2.2845
+Std Test MAE: 0.6478
+Std Test RMSE: 0.7853
+------------------------- time cost ------------------------- 5.744134902954102
+
+-------------Round number: 251-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9679
+Averaged Test RMSE: 2.3066
+Std Test MAE: 0.6425
+Std Test RMSE: 0.7737
+------------------------- time cost ------------------------- 5.251727342605591
+
+-------------Round number: 252-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9287
+Averaged Test RMSE: 2.2612
+Std Test MAE: 0.6794
+Std Test RMSE: 0.8134
+------------------------- time cost ------------------------- 5.961883068084717
+
+-------------Round number: 253-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9206
+Averaged Test RMSE: 2.2598
+Std Test MAE: 0.6693
+Std Test RMSE: 0.8055
+------------------------- time cost ------------------------- 5.341921091079712
+
+-------------Round number: 254-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9568
+Averaged Test RMSE: 2.2952
+Std Test MAE: 0.6449
+Std Test RMSE: 0.7704
+------------------------- time cost ------------------------- 5.773464679718018
+
+-------------Round number: 255-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9438
+Averaged Test RMSE: 2.2876
+Std Test MAE: 0.6321
+Std Test RMSE: 0.7655
+------------------------- time cost ------------------------- 5.304420471191406
+
+-------------Round number: 256-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9205
+Averaged Test RMSE: 2.2584
+Std Test MAE: 0.6676
+Std Test RMSE: 0.8002
+------------------------- time cost ------------------------- 5.869503736495972
+
+-------------Round number: 257-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9356
+Averaged Test RMSE: 2.2727
+Std Test MAE: 0.6482
+Std Test RMSE: 0.7777
+------------------------- time cost ------------------------- 5.500209331512451
+
+-------------Round number: 258-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9214
+Averaged Test RMSE: 2.2553
+Std Test MAE: 0.6651
+Std Test RMSE: 0.7991
+------------------------- time cost ------------------------- 5.511667251586914
+
+-------------Round number: 259-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9269
+Averaged Test RMSE: 2.2659
+Std Test MAE: 0.6426
+Std Test RMSE: 0.7742
+------------------------- time cost ------------------------- 5.868520498275757
+
+-------------Round number: 260-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9618
+Averaged Test RMSE: 2.3015
+Std Test MAE: 0.6517
+Std Test RMSE: 0.7831
+------------------------- time cost ------------------------- 5.358784198760986
+
+-------------Round number: 261-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9653
+Averaged Test RMSE: 2.3045
+Std Test MAE: 0.6391
+Std Test RMSE: 0.7711
+------------------------- time cost ------------------------- 6.078021764755249
+
+-------------Round number: 262-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9149
+Averaged Test RMSE: 2.2526
+Std Test MAE: 0.6505
+Std Test RMSE: 0.7870
+------------------------- time cost ------------------------- 5.343135356903076
+
+-------------Round number: 263-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9604
+Averaged Test RMSE: 2.2964
+Std Test MAE: 0.6233
+Std Test RMSE: 0.7556
+------------------------- time cost ------------------------- 5.844844341278076
+
+-------------Round number: 264-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9318
+Averaged Test RMSE: 2.2714
+Std Test MAE: 0.6007
+Std Test RMSE: 0.7366
+------------------------- time cost ------------------------- 5.402505159378052
+
+-------------Round number: 265-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.8957
+Averaged Test RMSE: 2.2270
+Std Test MAE: 0.6947
+Std Test RMSE: 0.8268
+------------------------- time cost ------------------------- 5.750156879425049
+
+-------------Round number: 266-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9622
+Averaged Test RMSE: 2.3017
+Std Test MAE: 0.6309
+Std Test RMSE: 0.7618
+------------------------- time cost ------------------------- 5.269735097885132
+
+-------------Round number: 267-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0059
+Averaged Test MAE: 1.9414
+Averaged Test RMSE: 2.2838
+Std Test MAE: 0.6447
+Std Test RMSE: 0.7785
+------------------------- time cost ------------------------- 5.166009426116943
+
+-------------Round number: 268-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0058
+Averaged Test MAE: 1.9508
+Averaged Test RMSE: 2.2901
+Std Test MAE: 0.6345
+Std Test RMSE: 0.7712
+------------------------- time cost ------------------------- 6.052236557006836
+
+-------------Round number: 269-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0060
+Averaged Test MAE: 1.9736
+Averaged Test RMSE: 2.3099
+Std Test MAE: 0.6269
+Std Test RMSE: 0.7567
+------------------------- time cost ------------------------- 5.238867998123169
+
+-------------Round number: 270-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9298
+Averaged Test RMSE: 2.2691
+Std Test MAE: 0.6375
+Std Test RMSE: 0.7735
+------------------------- time cost ------------------------- 5.777312278747559
+
+-------------Round number: 271-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9255
+Averaged Test RMSE: 2.2632
+Std Test MAE: 0.6267
+Std Test RMSE: 0.7584
+------------------------- time cost ------------------------- 5.201021909713745
+
+-------------Round number: 272-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9532
+Averaged Test RMSE: 2.2966
+Std Test MAE: 0.5956
+Std Test RMSE: 0.7311
+------------------------- time cost ------------------------- 5.903259754180908
+
+-------------Round number: 273-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9415
+Averaged Test RMSE: 2.2752
+Std Test MAE: 0.6570
+Std Test RMSE: 0.7873
+------------------------- time cost ------------------------- 5.274222135543823
+
+-------------Round number: 274-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9258
+Averaged Test RMSE: 2.2622
+Std Test MAE: 0.6595
+Std Test RMSE: 0.7965
+------------------------- time cost ------------------------- 5.307620048522949
+
+-------------Round number: 275-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9100
+Averaged Test RMSE: 2.2516
+Std Test MAE: 0.6252
+Std Test RMSE: 0.7702
+------------------------- time cost ------------------------- 5.859846353530884
+
+-------------Round number: 276-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9237
+Averaged Test RMSE: 2.2699
+Std Test MAE: 0.6380
+Std Test RMSE: 0.7753
+------------------------- time cost ------------------------- 5.183821201324463
+
+-------------Round number: 277-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9012
+Averaged Test RMSE: 2.2371
+Std Test MAE: 0.6420
+Std Test RMSE: 0.7841
+------------------------- time cost ------------------------- 5.918126821517944
+
+-------------Round number: 278-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9266
+Averaged Test RMSE: 2.2560
+Std Test MAE: 0.6655
+Std Test RMSE: 0.8024
+------------------------- time cost ------------------------- 5.052629232406616
+
+-------------Round number: 279-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9174
+Averaged Test RMSE: 2.2559
+Std Test MAE: 0.6297
+Std Test RMSE: 0.7700
+------------------------- time cost ------------------------- 5.9572319984436035
+
+-------------Round number: 280-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9074
+Averaged Test RMSE: 2.2438
+Std Test MAE: 0.6254
+Std Test RMSE: 0.7639
+------------------------- time cost ------------------------- 5.316854000091553
+
+-------------Round number: 281-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9227
+Averaged Test RMSE: 2.2527
+Std Test MAE: 0.6541
+Std Test RMSE: 0.7875
+------------------------- time cost ------------------------- 5.544489860534668
+
+-------------Round number: 282-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9686
+Averaged Test RMSE: 2.3035
+Std Test MAE: 0.6086
+Std Test RMSE: 0.7414
+------------------------- time cost ------------------------- 6.093337774276733
+
+-------------Round number: 283-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9055
+Averaged Test RMSE: 2.2431
+Std Test MAE: 0.6379
+Std Test RMSE: 0.7784
+------------------------- time cost ------------------------- 5.455935478210449
+
+-------------Round number: 284-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9263
+Averaged Test RMSE: 2.2631
+Std Test MAE: 0.6678
+Std Test RMSE: 0.8011
+------------------------- time cost ------------------------- 6.196490287780762
+
+-------------Round number: 285-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9043
+Averaged Test RMSE: 2.2497
+Std Test MAE: 0.6087
+Std Test RMSE: 0.7538
+------------------------- time cost ------------------------- 5.253970384597778
+
+-------------Round number: 286-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9462
+Averaged Test RMSE: 2.2806
+Std Test MAE: 0.6299
+Std Test RMSE: 0.7628
+------------------------- time cost ------------------------- 6.159858703613281
+
+-------------Round number: 287-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0057
+Averaged Test MAE: 1.9660
+Averaged Test RMSE: 2.3049
+Std Test MAE: 0.6114
+Std Test RMSE: 0.7417
+------------------------- time cost ------------------------- 5.556132078170776
+
+-------------Round number: 288-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9125
+Averaged Test RMSE: 2.2522
+Std Test MAE: 0.6139
+Std Test RMSE: 0.7504
+------------------------- time cost ------------------------- 6.324891567230225
+
+-------------Round number: 289-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9397
+Averaged Test RMSE: 2.2759
+Std Test MAE: 0.6531
+Std Test RMSE: 0.7840
+------------------------- time cost ------------------------- 5.482070684432983
+
+-------------Round number: 290-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.8997
+Averaged Test RMSE: 2.2317
+Std Test MAE: 0.6392
+Std Test RMSE: 0.7767
+------------------------- time cost ------------------------- 6.309382677078247
+
+-------------Round number: 291-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9193
+Averaged Test RMSE: 2.2553
+Std Test MAE: 0.6487
+Std Test RMSE: 0.7826
+------------------------- time cost ------------------------- 5.50167989730835
+
+-------------Round number: 292-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9061
+Averaged Test RMSE: 2.2517
+Std Test MAE: 0.6153
+Std Test RMSE: 0.7540
+------------------------- time cost ------------------------- 6.118216037750244
+
+-------------Round number: 293-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0054
+Averaged Test MAE: 1.9068
+Averaged Test RMSE: 2.2419
+Std Test MAE: 0.6194
+Std Test RMSE: 0.7575
+------------------------- time cost ------------------------- 5.248710870742798
+
+-------------Round number: 294-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9215
+Averaged Test RMSE: 2.2542
+Std Test MAE: 0.6554
+Std Test RMSE: 0.7902
+------------------------- time cost ------------------------- 5.487125396728516
+
+-------------Round number: 295-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9269
+Averaged Test RMSE: 2.2646
+Std Test MAE: 0.6193
+Std Test RMSE: 0.7495
+------------------------- time cost ------------------------- 5.805044412612915
+
+-------------Round number: 296-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0054
+Averaged Test MAE: 1.9133
+Averaged Test RMSE: 2.2477
+Std Test MAE: 0.6431
+Std Test RMSE: 0.7761
+------------------------- time cost ------------------------- 5.220100402832031
+
+-------------Round number: 297-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9064
+Averaged Test RMSE: 2.2380
+Std Test MAE: 0.6846
+Std Test RMSE: 0.8216
+------------------------- time cost ------------------------- 6.091295957565308
+
+-------------Round number: 298-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0054
+Averaged Test MAE: 1.9063
+Averaged Test RMSE: 2.2411
+Std Test MAE: 0.6490
+Std Test RMSE: 0.7877
+------------------------- time cost ------------------------- 5.521992444992065
+
+-------------Round number: 299-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0055
+Averaged Test MAE: 1.9018
+Averaged Test RMSE: 2.2395
+Std Test MAE: 0.6439
+Std Test RMSE: 0.7816
+------------------------- time cost ------------------------- 6.036884546279907
+
+-------------Round number: 300-------------
+
+Evaluate global model
+Averaged Train Loss: 0.0056
+Averaged Test MAE: 1.9259
+Averaged Test RMSE: 2.2647
+Std Test MAE: 0.6361
+Std Test RMSE: 0.7702
+------------------------- time cost ------------------------- 5.236992597579956
+
+Lowest MAE.
+1.8837259824041028
+
+Lowest RMSE.
+2.226980154985427
+
+Average time cost per round.
+5.1305475536982215
+File path: ../results/driving10_fg34_FedAWA_test_0.h5
+
+=== Memory usage AFTER training ===
+CPU RAM: 972.20 MB
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      | 173264 KiB | 211273 KiB |  12097 GiB |  12097 GiB |
+|       from large pool |  71700 KiB |  79000 KiB |   3345 GiB |   3345 GiB |
+|       from small pool | 101564 KiB | 139093 KiB |   8751 GiB |   8751 GiB |
+|---------------------------------------------------------------------------|
+| Active memory         | 173264 KiB | 211273 KiB |  12097 GiB |  12097 GiB |
+|       from large pool |  71700 KiB |  79000 KiB |   3345 GiB |   3345 GiB |
+|       from small pool | 101564 KiB | 139093 KiB |   8751 GiB |   8751 GiB |
+|---------------------------------------------------------------------------|
+| Requested memory      | 173138 KiB | 210614 KiB |  10978 GiB |  10978 GiB |
+|       from large pool |  71640 KiB |  76760 KiB |   2227 GiB |   2227 GiB |
+|       from small pool | 101498 KiB | 138974 KiB |   8751 GiB |   8751 GiB |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   | 223232 KiB | 223232 KiB | 223232 KiB |      0 B   |
+|       from large pool |  81920 KiB |  81920 KiB |  81920 KiB |      0 B   |
+|       from small pool | 141312 KiB | 141312 KiB | 141312 KiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |  45871 KiB |  80612 KiB |  12148 GiB |  12148 GiB |
+|       from large pool |  10220 KiB |  42300 KiB |   3365 GiB |   3365 GiB |
+|       from small pool |  35651 KiB |  48293 KiB |   8782 GiB |   8782 GiB |
+|---------------------------------------------------------------------------|
+| Allocations           |    1913    |    2667    |   38598 K  |   38596 K  |
+|       from large pool |      24    |      28    |    1819 K  |    1819 K  |
+|       from small pool |    1889    |    2643    |   36779 K  |   36777 K  |
+|---------------------------------------------------------------------------|
+| Active allocs         |    1913    |    2667    |   38598 K  |   38596 K  |
+|       from large pool |      24    |      28    |    1819 K  |    1819 K  |
+|       from small pool |    1889    |    2643    |   36779 K  |   36777 K  |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |      73    |      73    |      73    |       0    |
+|       from large pool |       4    |       4    |       4    |       0    |
+|       from small pool |      69    |      69    |      69    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |     335    |     545    |   26068 K  |   26067 K  |
+|       from large pool |       4    |       7    |    1422 K  |    1422 K  |
+|       from small pool |     331    |     541    |   24645 K  |   24644 K  |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+Average time cost: 1544.29s.
+Length MAE:  301
+Length RMSE:  301
+std for lowest mae: 0.0
+mean for lowest mae: 1.8837259824041028
+std for lowest rmse: 0.0
+mean for lowest rmse: 2.226980154985427
+Informer(
+  (enc_embedding): DataEmbedding(
+    (value_embedding): Linear(in_features=23, out_features=128, bias=True)
+    (position_embedding): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (encoder): Sequential(
+    (0): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (1): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (projection): Linear(in_features=128, out_features=1, bias=True)
+)
+Total parameters: 399,745
+Trainable parameters: 399,745
+Total parameters: 399,745
+Trainable parameters: 399,745
+Model size on disk: 3.98 MB
+Model size on disk: 3.98 MB
+hello
+[DEBUG] args.model is: Informer(
+  (enc_embedding): DataEmbedding(
+    (value_embedding): Linear(in_features=23, out_features=128, bias=True)
+    (position_embedding): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (encoder): Sequential(
+    (0): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (1): InformerLayer(
+      (attn): MultiheadAttention(
+        (out_proj): NonDynamicallyQuantizableLinear(in_features=128, out_features=128, bias=True)
+      )
+      (ff): Sequential(
+        (0): Linear(in_features=128, out_features=512, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=512, out_features=128, bias=True)
+      )
+      (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (projection): Linear(in_features=128, out_features=1, bias=True)
+)
+Entered Informer block
+FLOPs: 0.26 GFLOPs
+All done!
+
+Storage on cuda:0
+-------------------------------------------------------------------------------
+Total Tensors: 44075610 	Used Memory: 152.92M
+The allocated memory on cuda:0: 169.26M
+Memory differs due to the matrix alignment or invisible gradient buffer tensors
+-------------------------------------------------------------------------------
+
+Storage on cpu
+-------------------------------------------------------------------------------
+Total Tensors: 280 	Used Memory: 140.00K
+-------------------------------------------------------------------------------
+==================================================
+Algorithm: FedAWA
+Local epochs: 1
+Global rounds: 300
+Dataset: driving10_fg34
+Running times: 1
+Clients join in each round: 1.0
+Clients randomly join: False
+==================================================

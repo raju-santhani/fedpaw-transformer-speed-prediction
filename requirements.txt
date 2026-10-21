@@ -1,0 +1,11 @@
+# Recorded notebook versions. This is not a tested lockfile.
+# The original notebook installs the CUDA 11.8 torch/torchvision wheels.
+numpy==1.23.5
+torch==2.0.1
+torchvision==0.15.2
+joblib
+psutil
+fvcore
+calmsize
+opacus
+# Also install dependencies required by the upstream PFLlibVSP repository.
